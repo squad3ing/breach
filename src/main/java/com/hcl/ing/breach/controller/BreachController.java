@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,13 @@ public class BreachController {
 	public ResponseEntity<BreachDTO> getBreachSummary(@PathVariable Long breachId) {
 		BreachDTO breachDTO = breachService.fetchBreachSummary(breachId);
 		return new ResponseEntity<>(breachDTO, HttpStatus.OK);
+	}
+
+	@PutMapping("/breach/breachId/{breachId}/status/{status}")
+	public ResponseEntity<BreachDTO> updateBreach(@PathVariable long breachId, @PathVariable String status) {
+		BreachDTO breachDTO = breachService.updateBreach(breachId, status);
+		return new ResponseEntity<>(breachDTO, HttpStatus.OK);
+
 	}
 
 }

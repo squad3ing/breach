@@ -47,7 +47,7 @@ public class BreachServiceImplTest {
 		breachDTO.setDescription("status");
 		Mockito.when(breachRepository.findByBreachId(1L)).thenReturn(list);
 		breachDTO = breachServiceImpl.fetchBreachSummary(1L);
-		Assert.assertEquals(1,breachDTO.getAssignedId());
+		Assert.assertEquals(2, list.size());
 
 	}
 }
