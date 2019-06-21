@@ -20,27 +20,28 @@ import com.hcl.ing.breach.service.BusinessCategoryService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(allowedHeaders = {"*","/"} , origins = {"*","/"})
+@CrossOrigin(allowedHeaders = { "*", "/" }, origins = { "*", "/" })
 public class BusinessController {
 	private static final Logger lOGGER = LoggerFactory.getLogger(BusinessController.class);
-@Autowired
-BusinessAreaService businessAreaService;
-@Autowired
-BusinessCategoryService businessCategoryService;
+	@Autowired
+	BusinessAreaService businessAreaService;
+	@Autowired
+	BusinessCategoryService businessCategoryService;
 
-@GetMapping("/businessareas")
-public ResponseEntity<List<BusinessAreaDTO>> getAreas() {
-	List<BusinessAreaDTO> areas = businessAreaService.getAreas();
-	lOGGER.info("fetching...");
-	return new ResponseEntity<>(areas, HttpStatus.OK);
+	@GetMapping("/businessareas")
+	public ResponseEntity<List<BusinessAreaDTO>> getAreas() {
+		lOGGER.info("inside areas");
+		List<BusinessAreaDTO> areas = businessAreaService.getAreas();
+		return new ResponseEntity<>(areas, HttpStatus.OK);
 
-}
-@GetMapping("/businesscategories/{areaId}")
-public ResponseEntity<List<BusinessCategoryDTO>> getCategories(@PathVariable Long areaId) {
-	List<BusinessCategoryDTO> categories = businessCategoryService.getCategories(areaId);
-	return new ResponseEntity<>(categories, HttpStatus.OK);
+	}
 
-}
+	@GetMapping("/businesscategories/{areaId}")
+	public ResponseEntity<List<BusinessCategoryDTO>> getCategories(@PathVariable Long areaId) {
+		lOGGER.info("inside category");
+		List<BusinessCategoryDTO> categories = businessCategoryService.getCategories(areaId);
+		return new ResponseEntity<>(categories, HttpStatus.OK);
 
-	
+	}
+
 }
