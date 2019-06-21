@@ -20,6 +20,9 @@
 		  private static final long serialVersionUID = 1L; private Long employeeId;
 		  private String employeeName; private Date creationDate; private String
 		  status; private String description;
+
+			private Long breachId;
+			  private String assigneeName;
 		  
 		  
 		  }
