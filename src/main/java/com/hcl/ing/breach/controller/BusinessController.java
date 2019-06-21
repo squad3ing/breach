@@ -9,10 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hcl.ing.breach.dto.BusinessAreaDTO;
+import com.hcl.ing.breach.dto.BusinessCategoryDTO;
 import com.hcl.ing.breach.service.BusinessAreaService;
 import com.hcl.ing.breach.service.BusinessCategoryService;
 
@@ -33,7 +35,12 @@ public ResponseEntity<List<BusinessAreaDTO>> getAreas() {
 	return new ResponseEntity<>(areas, HttpStatus.OK);
 
 }
+@GetMapping("/businesscategories/{areaId}")
+public ResponseEntity<List<BusinessCategoryDTO>> getCategories(@PathVariable Long areaId) {
+	List<BusinessCategoryDTO> categories = businessCategoryService.getCategories(areaId);
+	return new ResponseEntity<>(categories, HttpStatus.OK);
 
+}
 
 	
 }
