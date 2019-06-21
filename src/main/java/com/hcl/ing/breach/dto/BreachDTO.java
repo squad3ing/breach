@@ -13,14 +13,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BreachDTO implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long employeeId;
-	private	String employeeName;
-	private	Date creationDate; 
+	private Long assignedId;
+	private String employeeName;
+	private Date creationDate;
 	private String status;
 	private String description;
 
