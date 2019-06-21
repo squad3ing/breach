@@ -21,7 +21,7 @@ public class LoginController {
 	@Autowired
 	LoginService loginService;
 	
-	@PostMapping("/api/login")
+	@PostMapping("/login")
 	public ResponseEntity<EmployeeDTO> login (@RequestBody LoginDTO loginDTO){
 		EmployeeDTO employeeDTO = loginService.login(loginDTO.getLoginId(),loginDTO.getPassword());
 		return new ResponseEntity<>(employeeDTO,HttpStatus.OK);
