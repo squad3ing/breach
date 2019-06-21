@@ -1,7 +1,7 @@
 package com.hcl.ing.breach.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,17 +12,9 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BreachDTO implements Serializable {
-	
-	/**
-	 * 
-	 */
+public class LoginDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Long employeeId;
-	private	String employeeName;
-	private	Date creationDate; 
-	private String status;
-	private String description;
-
+	private Long loginId;
+	private  String password;
 
 }
