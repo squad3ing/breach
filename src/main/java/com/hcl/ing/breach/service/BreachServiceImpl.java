@@ -2,10 +2,10 @@ package com.hcl.ing.breach.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,29 +17,44 @@ import com.hcl.ing.breach.entity.Rules;
 import com.hcl.ing.breach.repository.BreachRepository;
 import com.hcl.ing.breach.repository.EmployeeRepository;
 import com.hcl.ing.breach.repository.RulesRepository;
-@Service
-public class BreachServiceImpl implements BreachService{
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(BreachServiceImpl.class);
 
+@Service
+public class BreachServiceImpl implements BreachService {
+
+	private static final Logger logger = LoggerFactory.getLogger(BreachServiceImpl.class);
 	@Autowired
 	private BreachRepository breachRepository;
-	
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	@Autowired
 	RulesRepository rulesRepository;
-	
-	@Override
-	public BreachDTO updateBreach(long breachId,String status) {
 
-		
-		BreachDTO breachDTO=new BreachDTO();
-		Breach breach= breachRepository.findById(breachId).get();
+	@Override
+	public BreachDTO fetchBreachSummary(Long breachId) {
+		logger.info("fetch breach Summary");
+		List<Breach> breach = breachRepository.findByBreachId(breachId);
+		BreachDTO breachDTO = new BreachDTO();
+		// create breachDto object
+		breachDTO.setAssignedId(breach.get(0).getAssignedId());
+		breachDTO.setEmployeeName(breach.get(0).getAssigneeName());
+		breachDTO.setCreationDate(breach.get(0).getCreationDate());
+		breachDTO.setStatus(breach.get(0).getStatus());
+		breachDTO.setDescription(breach.get(0).getDescription());
+		breachDTO.setAssigneeName(breach.get(0).getAssigneeName());
+		breachDTO.setBreachId(breach.get(0).getBreachId());
+		logger.info("return breachDTO");
+		return breachDTO;
+	}// method
+
+	@Override
+	public BreachDTO updateBreach(long breachId, String status) {
+
+		BreachDTO breachDTO = new BreachDTO();
+		Breach breach = breachRepository.findById(breachId).get();
 		breach.setStatus(status);
-		breachDTO.setEmployeeId(breach.getCreatorId());
-		Employee employee=employeeRepository.findById(breach.getCreatorId()).get();
+		breachDTO.setAssignedId(breach.getCreatorId());
+		Employee employee = employeeRepository.findById(breach.getCreatorId()).get();
 		breachDTO.setEmployeeName(employee.getEmployeeName());
 		breachDTO.setCreationDate(breach.getCreationDate());
 		breachDTO.setDescription(breach.getDescription());
@@ -48,10 +63,9 @@ public class BreachServiceImpl implements BreachService{
 		return breachDTO;
 	}
 
-
 	@Override
 	public BreachDTO raiseBreach(BreachRequestDTO breachRequestDTO) throws IllegalAccessException, InvocationTargetException {
-		LOGGER.info("INSIDE BREACH SERVICE IMPL");
+		logger.info("INSIDE BREACH SERVICE IMPL");
 		BreachDTO breachDTO = new BreachDTO();
 		if(breachRequestDTO.getDescription()!=null) {
 		Employee employee =employeeRepository.findById(breachRequestDTO.getEmployeeId()).orElse(null);
@@ -82,7 +96,5 @@ public class BreachServiceImpl implements BreachService{
 		
 		return breachDTO;
 	}
-	
-
 
 }

@@ -16,12 +16,16 @@ import lombok.ToString;
 
 @Entity
 @Table
-@Getter @Setter @NoArgsConstructor @ToString
-public class Breach implements Serializable {/**
-	 * 
-	 */
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+public class Breach implements Serializable {
+	/**
+	* 
+	*/
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long breachId;
